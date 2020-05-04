@@ -5,20 +5,20 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 require('dotenv/config');
 
-//Middlewares--------------
+//Middlewares----------------------------------
 app.use(cors());
 app.use(bodyParser.json());
 
-//import routes-------------
+//import routes--------------------------------
 const postsRoute = require('./routes/posts');
 app.use('/posts',postsRoute);
 
-//Routes--------------------
+//Routes---------------------------------------
 app.get('/',(req,res) => {
     res.send('We are on home');
 });
 
-//connect to db--------------
+//connect to db--------------------------------
 mongoose.connect(process.env.DB_CONNECTION,
 { useNewUrlParser: true , useUnifiedTopology: true }
 ).then(()=> console.log('Connectd to DB!')
@@ -26,5 +26,5 @@ mongoose.connect(process.env.DB_CONNECTION,
     console.error(err);
 });
 
-//Start listening server-------
+//Start listening server----------------------
 app.listen(3000);

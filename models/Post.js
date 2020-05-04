@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-//create db schema------------
+//create db schema---------------------------------
 const PostSchema = mongoose.Schema({
     name:{
         type:String,
