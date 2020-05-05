@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Post = require('../models/Post');
 
-//posts routes-----------------
+//posts routes----------------------------------
 
 //get posts
 router.get('/',async (req,res)=>{
@@ -72,5 +72,5 @@ router.patch('/:postId',async (req,res) =>{
         console.error(err);
     }
 })
-//export routes-----------------    
+//export routes---------------------------------
 module.exports = router;
