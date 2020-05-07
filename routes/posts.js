@@ -1,6 +1,13 @@
 const router = require('express').Router();
 const Post = require('../models/Post');
 const { notifyMessage } = require('../notification');
+const Joi = require('@hapi/joi');
+//validations ----------------------------------
+//add post validation
+const postVal = {
+    name: Joi.string().min(6).max(256),
+    desc: Joi.string().min(1).max(1024)
+}
 //posts routes----------------------------------
 
 //get posts
@@ -16,6 +23,9 @@ router.get('/',async (req,res)=>{
 });
 //post posts
 router.post('/',async (req,res)=>{
+    // Check validation
+    const { error } = Joi.validate(req.body, postVal);
+    if(error) return res.status(400).send(notifyMessage(false,"Validation error","",error.details[0].message));
     const post = new Post ({
         name: req.body.name,
         desc: req.body.desc
