@@ -8,7 +8,7 @@ const getToken = sub => {
     });
     return token;
 }
-//Verify message
+//Verify message-------------------------------------------
 const verifyMeg =(Verify,Msg)=>{
     const message = {
         verify:Verify,
@@ -16,7 +16,7 @@ const verifyMeg =(Verify,Msg)=>{
     }
     return message;
 }
-//Verify token
+//Verify token--------------------------------------------
 const verifyToken = (req) => {
         var payload;
         const headerToken = req.headers.authorization;
@@ -32,5 +32,6 @@ const verifyToken = (req) => {
         }
         return verifyMeg(true,payload.sub.name);
 }
+//export functions---------------------------------------
 module.exports.getToken = getToken;
 module.exports.verifyToken = verifyToken;

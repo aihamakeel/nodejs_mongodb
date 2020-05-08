@@ -1,3 +1,4 @@
+//notify message---------------------------------
 const notifyMessage = (Sucess,Msg,Data,Err) => {
     const notify = {
         sucess: Sucess,
@@ -7,5 +8,5 @@ const notifyMessage = (Sucess,Msg,Data,Err) => {
     }
     return notify;
 }
-
+//export function-------------------------------
 module.exports.notifyMessage = notifyMessage;

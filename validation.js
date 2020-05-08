@@ -25,6 +25,7 @@ const loginValidation = data => {
     }
     return Joi.validate(data,loginVal);
 }
+//export functions-------------------------------
 module.exports.postValidation = postValidation;
 module.exports.regValidation = regValidation;
 module.exports.loginValidation = loginValidation;
