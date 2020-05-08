@@ -3,6 +3,7 @@ const User = require('../models/User');
 const { notifyMessage } = require('../notification');
 const { loginValidation } = require('../validation');
 const bcrypt = require('bcryptjs');
+const { getToken } = require('../auth/jwt');
 
 //Get hashed password function -----------------------
 const hashPWD =  data =>{
@@ -21,7 +22,10 @@ router.post('/',async (req,res)=>{
         if(user){
             const checkPwd = bcrypt.compareSync(req.body.pwd,user.pwd);
             if(checkPwd){
-                res.status(200).json(notifyMessage(true,'Login successfully',{token:''},''));
+                //generate token
+                const token = getToken(sub = {id: user._id,name: user.name, email:user.email});
+                //send token with login
+                res.status(200).json(notifyMessage(true,'Login successfully',{token: token},''));
                 console.log('Login successfully');
             }else{
                 res.status(400).json(notifyMessage(false,'Login faild','','Email or password invalid'));

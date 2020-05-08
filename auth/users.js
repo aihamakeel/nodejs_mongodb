@@ -3,6 +3,7 @@ const User = require('../models/User');
 const { notifyMessage } = require('../notification');
 const { regValidation } = require('../validation');
 const bcrypt = require('bcryptjs');
+const { verifyToken } = require ('../auth/jwt');
 
 //Get hashed password function--------------------------------
 const hashPWD =  data =>{
@@ -12,8 +13,11 @@ const hashPWD =  data =>{
 //users routers-----------------------------------------------
 //get all users
 router.get ('/',async (req,res)=>{
+    //check token
+    const checkToken = verifyToken(req);
+    if(!checkToken.verify) return res.status(400).json(notifyMessage(false,'Access denied','',checkToken.msg));
+   //get all
     try {
-        //get all
         const users = await User.find();
         res.status(200).json(notifyMessage(true,'Users readed successfully',users,''));
         console.log('Users readed successfully')
@@ -47,6 +51,10 @@ router.post('/register',async (req,res)=>{
 });
 //get one user
 router.get('/:userID',async(req,res)=>{
+    //check token
+    const checkToken = verifyToken(req);
+    if(!checkToken.verify) return res.status(400).json(notifyMessage(false,'Access denied','',checkToken.msg));
+    //get user
     try {
         const users = await User.findById({_id:req.params.userID});
         res.status(200).json(notifyMessage(true,'Users readed successfully',users,''));
@@ -58,6 +66,9 @@ router.get('/:userID',async(req,res)=>{
 });
 //update user
 router.patch('/:userID',async(req,res)=>{
+    //check token
+    const checkToken = verifyToken(req);
+    if(!checkToken.verify) return res.status(400).json(notifyMessage(false,'Access denied','',checkToken.msg));
     //check validation
     const { error } = regValidation(req.body);
     if(error) return res.status(400).json(notifyMessage(false,'Validation error','',error.details[0].message));
@@ -76,6 +87,10 @@ router.patch('/:userID',async(req,res)=>{
 });
 //delete user
 router.delete('/:userID',async(req,res)=>{
+    //check token
+    const checkToken = verifyToken(req);
+    if(!checkToken.verify) return res.status(400).json(notifyMessage(false,'Access denied','',checkToken.msg));
+    //delete
     try {
         const deleteUser = await User.remove({_id:req.params.userID});
         res.status(200).json(notifyMessage(true,'User deleted successfully',deleteUser,''));
