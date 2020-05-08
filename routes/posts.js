@@ -20,10 +20,12 @@ router.post('/',async (req,res)=>{
     // Check validation
     const { error } = postValidation(req.body);
     if(error) return res.status(400).send(notifyMessage(false,"Validation error","",error.details[0].message));
+   //get data from request body
     const post = new Post ({
         name: req.body.name,
         desc: req.body.desc
     });
+    // add data 
     try {
         const savePost = await post.save();
         res.status(200).json(notifyMessage(true,'Post added successfully',savePost,''));
@@ -63,6 +65,9 @@ router.delete('/:postId',async (req,res) => {
 });
 //update post by id
 router.patch('/:postId',async (req,res) =>{
+    //check validation
+    const { error } = postValidation(req.body);
+    if(error) return res.status(400).send(notifyMessage(false,"Validation error","",error.details[0].message));
     try {
         const updatePost = await Post.updateOne(
             {_id:req.params.postId},

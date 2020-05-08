@@ -10,10 +10,14 @@ app.use(cors());
 app.use(bodyParser.json());
 
 //import routes--------------------------------
+//posts route
 const postsRoute = require('./routes/posts');
 app.use('/posts',postsRoute);
+//users route
+const usersRoute = require('./auth/users');
+app.use('/users',usersRoute);
 
-//Routes---------------------------------------
+//Home routes---------------------------------------
 app.get('/',(req,res) => {
     res.send('We are on home');
 });
@@ -27,4 +31,4 @@ mongoose.connect(process.env.DB_LOCAL,
 });
 
 //Start listening server----------------------
-app.listen(3000);
+app.listen(3000,()=> console.log('Server is running!'));
