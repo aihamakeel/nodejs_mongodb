@@ -4,7 +4,7 @@ const { notifyMessage } = require('../notification');
 const { regValidation } = require('../validation');
 const bcrypt = require('bcryptjs');
 
-//Get hashed password function
+//Get hashed password function--------------------------------
 const hashPWD =  data =>{
     const hash = bcrypt.hashSync(data, 10);
     return hash;
