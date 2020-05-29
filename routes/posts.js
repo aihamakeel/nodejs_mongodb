@@ -80,7 +80,7 @@ router.delete('/:postId',async (req,res) => {
     }
 });
 //update post by id
-router.patch('/:postId',async (req,res) =>{
+router.put('/:postId',async (req,res) =>{
     //check token
     const checkToken = verifyToken(req);
     if(!checkToken.verify) return res.status(400).json(notifyMessage(false,'Access denied','',checkToken.msg));

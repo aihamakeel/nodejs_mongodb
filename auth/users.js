@@ -65,7 +65,7 @@ router.get('/:userID',async(req,res)=>{
     }
 });
 //update user
-router.patch('/:userID',async(req,res)=>{
+router.put('/:userID',async(req,res)=>{
     //check token
     const checkToken = verifyToken(req);
     if(!checkToken.verify) return res.status(400).json(notifyMessage(false,'Access denied','',checkToken.msg));
